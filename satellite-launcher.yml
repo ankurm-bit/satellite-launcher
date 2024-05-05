@@ -1,0 +1,255 @@
+openapi: "3.1.0"
+info:
+  title: "satellite_launcher API"
+  description: "satellite_launcher API"
+  version: "1.0.0"
+servers:
+  - url: "https://localhost:8081"
+paths:
+  /satellite/api/launcher:
+    get:
+      summary: "GET satellite/api/launcher"
+      operationId: "retrieveSatelliteLauncherInfo"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                type: "array"
+                items:
+                  $ref: "#/components/schemas/SatelliteLauncher"
+    post:
+      summary: "POST satellite/api/launcher"
+      operationId: "saveSatelliteLauncherInfo"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Launcher"
+        required: true
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                type: "string"
+  /satellite/api/launcher/{id}:
+    get:
+      summary: "GET satellite/api/launcher/{id}"
+      operationId: "retrieveSatelliteLauncherInfo"
+      parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          schema:
+            type: "string"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/SatelliteLauncher"
+    patch:
+      summary: "PATCH satellite/api/launcher/{id}"
+      operationId: "updateSatelliteLauncherInfo"
+      parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          schema:
+            type: "string"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Launcher"
+        required: true
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/SatelliteLauncher"
+    delete:
+      summary: "DELETE satellite/api/launcher/{id}"
+      operationId: "deleteSatelliteLauncherInfo"
+      parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          schema:
+            type: "string"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                type: "string"
+  /satellite/api/customer-satellite:
+    get:
+      summary: "GET satellite/api/customer-satellite"
+      operationId: "retrieveCustomerSatelliteInfo"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                type: "array"
+                items:
+                  $ref: "#/components/schemas/CustomerSatellite"
+    post:
+      summary: "POST satellite/api/customer-satellite"
+      operationId: "createCustomerSatellite"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CustomerSatellite"
+        required: true
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/CustomerSatellite"
+  /satellite/api/customer-satellite/{id}:
+    get:
+      summary: "GET satellite/api/customer-satellite/{id}"
+      operationId: "retrieveCustomerSatellite"
+      parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          schema:
+            type: "string"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/CustomerSatellite"
+    put:
+      summary: "PUT satellite/api/customer-satellite/{id}"
+      operationId: "updateCustomerSatellite"
+      parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          schema:
+            type: "string"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CustomerSatellite"
+        required: true
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/CustomerSatellite"
+    patch:
+      summary: "PATCH satellite/api/customer-satellite/{id}"
+      operationId: "partialUpdateCustomerSatellite"
+      parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          schema:
+            type: "string"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CustomerSatellite"
+        required: true
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/CustomerSatellite"
+    delete:
+      summary: "DELETE satellite/api/customer-satellite/{id}"
+      operationId: "deleteCustomerSatellite"
+      parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          schema:
+            type: "string"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                type: "string"
+  /satellite/api/resource/customer-satellite:
+    get:
+      summary: "GET satellite/api/resource/customer-satellite"
+      operationId: "loadCustomerSatellite"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                type: "string"
+  /satellite/api/resource/launchers:
+    get:
+      summary: "GET satellite/api/resource/launchers"
+      operationId: "loadSatellite"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                type: "string"
+components:
+  schemas:
+    SatelliteLauncher:
+      type: "object"
+      properties:
+        id:
+          type: "string"
+        type:
+          type: "string"
+          enum:
+            - "NEW"
+            - "OLD"
+            - "DEGRADED"
+        registeredOn:
+          type: "string"
+          format: "date-time"
+    Launcher:
+      type: "object"
+      properties:
+        id:
+          type: "string"
+    CustomerSatellite:
+      type: "object"
+      properties:
+        id:
+          type: "string"
+        country:
+          type: "string"
+        launchDate:
+          type: "string"
+          format: "date-time"
+        mass:
+          type: "string"
+        launcher:
+          type: "string"
