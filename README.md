@@ -11,6 +11,7 @@
 - it will create executable jar .
 
 ## cmd to run executabler jar 
+- mvn clean package
 
 - java -jar {application-name}.jar &
 
